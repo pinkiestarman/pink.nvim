@@ -18,7 +18,12 @@ require('lazy').setup({
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
-  { 'akinsho/bufferline.nvim', version = '*', dependencies = 'nvim-tree/nvim-web-devicons' },
+  { 'rose-pine/neovim', name = 'rose-pine' },
+  {
+    'samharju/synthweave.nvim',
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000,
+  },
   -- Use `opts = {}` to automatically pass options to a plugin's `setup()` function, forcing the plugin to be loaded.
   --
   {
@@ -31,6 +36,23 @@ require('lazy').setup({
       cache = false,
     },
   },
+  {
+    'maxmx03/fluoromachine.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      local fm = require 'fluoromachine'
+
+      fm.setup {
+        glow = false,
+        theme = 'retrowave',
+        transparent = false,
+      }
+    end,
+  },
+
+  -- { 'akinsho/bufferline.nvim', version = '*', dependencies = 'nvim-tree/nvim-web-devicons' },
+
   -- modular approach: using `require 'path/name'` will
   -- include a plugin definition from file lua/path/name.lua
 
@@ -65,7 +87,7 @@ require('lazy').setup({
   --
   require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
-  require 'kickstart.plugins.lint',
+  -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
 
@@ -100,5 +122,3 @@ require('lazy').setup({
     },
   },
 })
-
--- vim: ts=2 sts=2 sw=2 et
