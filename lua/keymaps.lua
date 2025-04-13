@@ -54,3 +54,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+-- close current buffer with :Q
+vim.api.nvim_create_user_command('Q', function()
+  local buf_content = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  if #buf_content == 0 or (#buf_content == 1 and buf_content[1] == '') then
+    vim.cmd 'bd'
+  else
+    vim.cmd 'q'
+  end
+end, { desc = 'Close the buffer if empty, otherwise quit' })
+
+vim.cmd 'cabbrev q Q'
