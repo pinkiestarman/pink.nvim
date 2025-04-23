@@ -7,6 +7,24 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>n', '<cmd>lua vim.diagnostic.jump { count = 1, float = true }<CR>', { desc = 'Jump to [n]ext diagnostic message' })
+vim.keymap.set(
+  'n',
+  '<leader>N',
+  '<cmd>lua vim.diagnostic.jump { count = 1, float = true }<CR><cmd>lua vim.lsp.buf.code_action { filter = function(a) return a.isPreferred end, apply = true, }<CR>',
+  { desc = 'Jump to next diagnostic message and fix it' }
+)
+
+local function quickfix()
+  vim.lsp.buf.code_action {
+    filter = function(a)
+      return a.isPreferred
+    end,
+    apply = true,
+  }
+end
+
+vim.keymap.set('n', '<leader>x', quickfix, { noremap = true, desc = 'Quickfi[x]' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -64,5 +82,3 @@ vim.api.nvim_create_user_command('Q', function()
     vim.cmd 'q'
   end
 end, { desc = 'Close the buffer if empty, otherwise quit' })
-
-vim.cmd 'cabbrev q Q'
