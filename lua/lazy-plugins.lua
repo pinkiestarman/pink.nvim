@@ -36,13 +36,23 @@ require('lazy').setup({
       cache = false,
     },
   },
+
+  {
+    'scottmckendry/cyberdream.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {
+      borderless_pickers = true,
+      -- Improve start up time by caching highlights. Generate cache with :CyberdreamBuildCache and clear with :CyberdreamClearCache
+      cache = false,
+    },
+  },
   {
     'maxmx03/fluoromachine.nvim',
     lazy = false,
     priority = 1000,
     config = function()
       local fm = require 'fluoromachine'
-
       fm.setup {
         glow = false,
         theme = 'retrowave',
@@ -66,7 +76,7 @@ require('lazy').setup({
 
   require 'kickstart/plugins/conform',
 
-  require 'kickstart/plugins/cmp',
+  require 'kickstart/plugins/blink-cmp',
 
   require 'kickstart/plugins/todo-comments',
 
