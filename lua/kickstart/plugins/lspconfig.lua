@@ -208,10 +208,23 @@ return {
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      local function get_clangd_path()
+        if vim.fn.has 'linux' == 1 then
+          return '/usr/bin/clangd'
+        elseif vim.fn.has 'mac' == 1 then
+          return '/opt/homebrew/opt/llvm/bin/clangd'
+        elseif vim.fn.has 'windows' == 1 then
+          return ''
+        else
+          print 'error: Operating systeem not recognized'
+          return ''
+        end
+      end
+
       local servers = {
         clangd = {
           cmd = {
-            '/opt/homebrew/opt/llvm/bin/clangd',
+            get_clangd_path(),
             '--background-index',
             '-j=6',
             '--clang-tidy',
