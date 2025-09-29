@@ -18,7 +18,7 @@ require 'lazy-bootstrap'
 
 -- [[ Configure and install plugins ]]
 require 'lazy-plugins'
-vim.cmd.colorscheme 'fluoromachine'
+vim.cmd.colorscheme 'cyberdream'
 
 require('lualine').setup {
   tabline = {
@@ -27,10 +27,10 @@ require('lualine').setup {
     lualine_c = {},
     lualine_x = {},
     lualine_y = {},
-    lualine_z = { 'filename' },
+    lualine_z = {},
   },
   options = {
-    theme = 'fluoromachine',
+    theme = 'synthweave',
   },
 }
 
